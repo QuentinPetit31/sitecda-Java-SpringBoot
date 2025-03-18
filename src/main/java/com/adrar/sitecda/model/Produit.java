@@ -1,41 +1,29 @@
 package com.adrar.sitecda.model;
 
+import jakarta.persistence.*;
+import lombok.*;
+
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Produit {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(length = 50, nullable = false)
     private String nom;
+
+    @Column(length = 50, nullable = false)
     private String description;
+
+    @Column(nullable = false)
     private Double price;
 
-    public Produit() {
-    }
-
-    public Produit(String nom, String description, Double price) {
-        this.nom = nom;
-        this.description = description;
-        this.price = price;
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
 }
